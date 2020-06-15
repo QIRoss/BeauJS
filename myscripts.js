@@ -167,22 +167,23 @@ console.log('name' in myObject);
 
 //SET TIMEOUT 
 
-var timeoutID = setTimeout(bye, 3000);
+// var timeoutID = setTimeout(bye, 3000);
 
-console.log('hello');
+// console.log('hello');
 
-clearTimeout(timeoutID);
+// clearTimeout(timeoutID);
 
-function bye() {
-    console.log('goodbye');
-}
+// function bye() {
+//     console.log('goodbye');
+// }
 
-var count = 0
-var intId = setInterval(counter, 1000);
+// var count = 0
+// var intId = setInterval(counter, 1000);
 
-function counter() {
-    console.log(++count);
-}
+// function counter() {
+//     console.log(++count);
+// }
+
 
 // TRY CATCH FINALLY
 
@@ -218,3 +219,145 @@ console.log(d1.toTimeString())
 
 var d2 = new Date(2017, 1, 3, 42, 43, 23, 23)
 console.log(d2.toString())
+
+//ES6
+
+var Pi = 3.14
+Pi=1
+
+class Person {
+    constructor(name, year_born) {
+        this.name = name;
+        this.year_born = year_born;
+    }
+
+    get age() {
+        return this.calcAge();
+    }
+
+    calcAge() {
+        return new Date().getFullYear() - this.year_born;
+    }
+
+    what() {
+        console.log(this.name + ' is a person.');
+    }
+
+    static arms() {
+        return 2;
+    }
+}
+
+var me = new Person("Beau", 1983);
+console.log(me.name + " was born in " + me.year_born + "!")
+me.what();
+console.log(me.name + " has " + Person.arms() + "arms!")
+
+class Juggler extends Person {
+    what() {
+        super.what();
+        console.log(this.name + " is a juggler ");
+    }
+}
+
+var you = new Juggler ("Jay", 1980);
+me.what();
+you.what();
+
+var Person2 = class {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+};
+
+var Person3 = class Person {
+    constructor(name,age) {
+        this.name = name;
+        this.age = age;
+    }
+};
+
+//SYMBOLS
+
+console.log("\n\n\nsymbols");
+
+let symbol1 = Symbol('symbol2');
+let symbol2 = Symbol('symbol2');
+console.log(symbol1 === symbol2);
+console.log(typeof symbol1);
+console.log('symbol: ' + symbol1.toString());
+
+// Use case 1: Symbols as property keys
+    const MY_KEY = Symbol();
+    let obj = {};
+
+    obj[MY_KEY] = 123;
+    console.log(obj[MY_KEY]);
+
+// Use case 2: constants representing concepts
+
+const COLOR_RED     = Symbol('Red');
+const COLOR_ORANGE  = Symbol('Orange');
+const COLOR_YELLOW  = Symbol('Yellow');
+const COLOR_GREEN   = Symbol('Green');
+const COLOR_BLUE    = Symbol('Blue');
+const COLOR_VIOLET  = Symbol('Violet');
+
+function getComplement(color) {
+    switch (color) {
+        case COLOR_RED:
+            return COLOR_GREEN;
+        case COLOR_ORANGE:
+            return COLOR_BLUE;
+        case COLOR_YELLOW:
+            return COLOR_VIOLET;
+        case COLOR_GREEN:
+            return COLOR_RED;
+        case COLOR_BLUE:
+            return COLOR_ORANGE;
+        case COLOR_VIOLET:
+            return COLOR_YELLOW;
+        default:
+            throw new Exception('Unknown color: ' +color);
+    }
+}
+
+// TEMPLATE LITERALS 
+
+// multi-line strings
+console.log(`string text line 1 
+string text line 2`);
+
+// expression interpolation
+var a = 5;
+var b = 10;
+console.log(`Fifteen is ${a + b} and
+not ${2* a + b}.`)
+
+// Tagged template literals
+function tag(strings, ...values) {
+    console.log(strings);
+    console.log(values);
+
+    return "JS Nuggets!";
+}
+
+tag`Hello ${a + b} world ${a * b}`;
+
+// PROXIES
+console.log("\n\n\n\n PROXY");
+
+var handler = {
+    get (target, key) {
+        return key in target ? target[key] : 37;
+    }
+};
+
+var p = new Proxy({}, handler);
+
+p.a = 1;
+p.b = undefined;
+
+console.log(p.a, p.b);
+console.log('c' in p, p.c);
